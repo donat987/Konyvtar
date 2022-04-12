@@ -17,3 +17,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/bejelentkezes', function () {
+    return view('login');
+});
+
+Route::get('/kereses', function () {
+    return view('search');
+});
+
+Route::get('/rolunk', function () {
+    return view('about');
+});

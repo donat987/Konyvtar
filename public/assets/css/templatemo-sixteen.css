@@ -275,7 +275,6 @@ header .navbar {
 	letter-spacing: 0.5px;
 	color: #fff;
 	transition: all 0.5s;
-	margin-top: 5px;
 }
 .navbar .navbar-nav .nav-link:hover,
 .navbar .navbar-nav .active>.nav-link,
@@ -291,7 +290,7 @@ header .navbar {
 }
 .navbar .navbar-toggler {
 	border-color: #fff;
-	background-color: #fff;	
+	background-color: #fff;
 	height: 36px;
 	outline: none;
 	border-radius: 0px;

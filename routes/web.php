@@ -28,3 +28,13 @@ Route::get('/kereses', function () {
 Route::get('/rolunk', function () {
     return view('about');
 });
+
+Route::get('/konyvkolcsonzes', function () {
+    return view('bookrental');
+});
+Route::get('/konyvkezeles', function () {
+    return view('addbook');
+});
+Route::get('/kolcsonzohozzaad', function () {
+    return view('adduser');
+});

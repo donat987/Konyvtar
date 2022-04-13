@@ -18,19 +18,9 @@
 	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
     <title>Incidens Kar</title>
-
-    <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<!--
-
-TemplateMo 546 Sixteen Clothing
-
-https://templatemo.com/tm-546-sixteen-clothing
-
--->
-
-    <!-- Additional CSS Files -->
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/templatemo-sixteen.css">
     <link rel="stylesheet" href="assets/css/owl.css">
@@ -85,15 +75,15 @@ https://templatemo.com/tm-546-sixteen-clothing
 				<span class="login100-form-title p-b-41">
 					Bejelentkezes
 				</span>
-				<form class="login100-form validate-form p-b-33 p-t-5">
-
+				<form class="login100-form validate-form p-b-33 p-t-5" method='post' id="form1" title="" action="action.php?action=bejelentkezes">
+                    <center><p id="hiba"></p></center>
 					<div class="wrap-input100 validate-input" data-validate = "Enter username">
-						<input class="input100" type="text" name="username" placeholder="Felhasználó név">
+						<input class="input100" type="text" id="username" name="username" placeholder="Felhasználó név">
 						<span class="focus-input100" data-placeholder="&#xe82a;"></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						<input class="input100" type="password" name="pass" placeholder="Jelszó">
+						<input class="input100" type="password" id="password" name="pass" placeholder="Jelszó">
 						<span class="focus-input100" data-placeholder="&#xe80f;"></span>
 					</div>
 
@@ -107,7 +97,27 @@ https://templatemo.com/tm-546-sixteen-clothing
 			</div>
 		</div>
 	</div>
+    <script>
+        $("#form1").submit(function (event) {
+            event.preventDefault();
+            var a = {username: $('#username').val()};
+            var c = {password: $('#password').val()};
+            $.ajax({
+                url: "action.php?action=bejelentkezes",
+                method: "post",
+                data: {username: a.username, password: c.password},
+                success: function (data)
+                {
+                    if (data == "") {
+                        //window.location.assign("?menu=jatek")
+                    } else {
+                        $('#hiba').html(data);
+                    }
+                }
+            });
 
+        });
+    </script>
     <footer>
       <div class="container">
         <div class="row">

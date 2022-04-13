@@ -29,7 +29,9 @@ https://templatemo.com/tm-546-sixteen-clothing
   </head>
 
   <body>
-
+    <?php
+    session_start();
+    ?>
     <!-- ***** Preloader Start ***** -->
     <div id="preloader">
         <div class="jumper">

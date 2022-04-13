@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('stock')->nullable();
             $table->string('publisher');
             $table->string('content');
+            $table->string('picture');
             $table->integer('price')->nullable();
             $table->unsignedBigInteger('categoryID');
             $table->unsignedBigInteger('languageID');

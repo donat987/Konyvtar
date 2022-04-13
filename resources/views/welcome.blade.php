@@ -53,11 +53,7 @@ https://templatemo.com/tm-546-sixteen-clothing
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
-<<<<<<< HEAD
-                <a class="nav-link" href="/">Korteee!!!
-=======
-                <a class="nav-link" href="/">ALMA!!!!!!!
->>>>>>> 350241937f6a690316da873abb0f222288db81e3
+                <a class="nav-link" href="/">Főoldak
                   <span class="sr-only">(current)</span>
                 </a>
               </li>

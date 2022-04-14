@@ -55,6 +55,9 @@ https://templatemo.com/tm-546-sixteen-clothing
               <li class="nav-item active">
                 <a class="nav-link" href="/">Főoldak
                   <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link" href="/kereses">Keresés</a>
               </li>
               <li class="nav-item">

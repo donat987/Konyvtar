@@ -32,6 +32,7 @@ switch ($_GET["action"]) {
                 }
                 else{
                     echo"Hibás felhasználónév vagy jelszó!";
+
                 }
             }
             else{

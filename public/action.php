@@ -30,6 +30,9 @@ switch ($_GET["action"]) {
                     </script>
                     <?php
                 }
+                else{
+                    echo"Hibás felhasználónév vagy jelszó!";
+                }
             }
             else{
                 echo"Hibás felhasználónév vagy jelszó!";

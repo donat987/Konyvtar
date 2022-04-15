@@ -35,6 +35,10 @@ Route::get('/konyvkolcsonzes', function () {
 Route::get('/konyvkezeles', function () {
     return view('addbook');
 });
-Route::get('/kolcsonzohozzaad', function () {
+Route::get('/olvasohozzaadasa', function () {
     return view('adduser');
 });
+
+Route::get('/kolcsonzok',[App\Http\Controllers\ReadersController::class, 'index']);
+Route::get('/kolcsonzok/{readers}',[App\Http\Controllers\ReadersController::class, 'show']);
+

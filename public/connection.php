@@ -25,6 +25,10 @@ class DBController {
 			return $resultset;
 	}
 
+    function addQuery($query) {
+		$result = mysqli_query($this->conn,$query);
+    }
+
 	function numRows($query) {
 		$result  = mysqli_query($this->conn,$query);
 		$rowcount = mysqli_num_rows($result);

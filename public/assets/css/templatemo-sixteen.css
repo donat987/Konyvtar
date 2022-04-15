@@ -315,6 +315,32 @@ header .navbar {
 	padding-top: 80px;
 }
 
+
+
+.menukorrig{
+    position: relative;
+	padding-top: 80px;
+    width: 65%;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 100px;
+    background-color: #232323;
+}
+
+
+.kolcsonzo {
+	position: relative;
+	padding-top: 80px;
+    width: 65%;
+    padding-top: 5%;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .banner-item-01 {
 	padding: 300px 0px;
 	background-image: url(../images/slide_01.jpg);

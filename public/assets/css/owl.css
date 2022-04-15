@@ -6,6 +6,29 @@
 /*
  *  Owl Carousel - Core
  */
+ .menukorrig{
+    position: relative;
+	padding-top: 80px;
+    width: 65%;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 100px;
+    background-color: #232323;
+}
+
+
+.kolcsonzo {
+    flex-wrap: nowrap;
+	position: relative;
+	padding-top: 5px;
+    width: 60%;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
 .owl-carousel {
   display: none;
   width: 100%;

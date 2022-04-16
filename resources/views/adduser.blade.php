@@ -72,19 +72,19 @@
         </nav>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
             <div class="container">
-                <form class="form-inline" method="post" id="form1" title="" action="action.php?action=keres">
+                <form class="form-inline" method="post" id="form" title="" action="/action.php?action=keres">
                     <div class=" form-row " style="flex-wrap: nowrap;">
                         <div class=" form-group col-md-10">
                             <input class="form-control"  id="keres" name="keres" type="search" placeholder="Név keresése" aria-label="Search">
                         </div>
-                        <button class="btn btn-outline-success my-2 my-sm-0" form="form1" type="submit" form="form1">Keres</button>
+                        <button class="btn btn-outline-success my-2 my-sm-0" form="form" type="submit">Keres</button>
 
                     </div>
                 </form>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" href="/olvasohozzaadasa">Olvasó hozzáadása</a>
+                            <a class="nav-link active" href="/kolcsonzohozzaad">Olvasó hozzáadása</a>
                         </li>
                     </ul>
                 </div>
@@ -93,7 +93,7 @@
     </header>
 
     <div class="kolcsonzo">
-        <form enctype='multipart/form-data' method='post' id="form1" title="" action="action.php?action=felhasznalofelvetel">
+        <form enctype='multipart/form-data' method='post' id="form1" title="" action="/action.php?action=felhasznalofelvetel">
             <center><p id="hiba"></p></center>
                 <div class="form-row">
                   <div class="form-group col-md-6">
@@ -169,20 +169,9 @@
             var j = {inputhouseNumber: $('#inputhouseNumber').val()};
             var k = {inputtownid: $('#inputtownid').val()};
             $.ajax({
-                url: "action.php?action=felhasznalofelvetel",
+                url: "/action.php?action=felhasznalofelvetel",
                 method: "post",
-                data: {inputname: a.inputname,
-                    inputdate: b.inputdate,
-                    inputstudent: c.inputstudent,
-                    inputmobil: d.inputmobil,
-                    inputemail: e.inputemail,
-                    inputmothername: f.inputmothername,
-                    inputpersonid: g.inputpersonid,
-                    inputtown: h.inputtown,
-                    inputstreet: i.inputstreet,
-                    inputhouseNumber: j.inputhouseNumber,
-                    inputtownid: k.inputtownid
-                },
+                data: {inputname: a.inputname, inputdate: b.inputdate, inputstudent: c.inputstudent, inputmobil: d.inputmobil, inputemail: e.inputemail, inputmothername: f.inputmothername, inputpersonid: g.inputpersonid, inputtown: h.inputtown, inputstreet: i.inputstreet, inputhouseNumber: j.inputhouseNumber, inputtownid: k.inputtownid },
                 success: function (data)
                 {
                     if (data == "") {
@@ -199,7 +188,6 @@
 
 
      <!-- Bootstrap core JavaScript -->
-     <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
      <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
 

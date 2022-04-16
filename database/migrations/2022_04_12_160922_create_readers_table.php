@@ -16,14 +16,13 @@ return new class extends Migration
         Schema::create('readers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('dateOfBirth');
+            $table->date('dateOfBirth');
             $table->string('mobilNumber');
             $table->string('email');
             $table->string('townID');
             $table->string('town');
             $table->string('street');
             $table->string('houseNumber');
-            $table->date('mamberDate');
             $table->string('motherName');
             $table->boolean('student');
             $table->string('personID');

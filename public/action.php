@@ -63,13 +63,9 @@ switch ($_GET["action"]) {
             $inputstreet = $_POST["inputstreet"];
             $inputhouseNumber = $_POST["inputhouseNumber"];
             $inputtownid = $_POST["inputtownid"];
-            print_r("kika");
-            ?>
-                    <script>
-                    window.location.assign("/konyvkolcsonzes");
-                    </script>
-                    <?php
-            //$productByid = $db_handle->addQuery("");
+            $inputid = $_POST["inputid"];
+            $productByid = $db_handle->addQuery("UPDATE `readers` SET `name` = '".$inputname."', `dateOfBirth` = '".$inputdate."', `mobilNumber` = '".$inputmobil."', `email` = '".$inputemail."', `townID` = '".$inputtownid."', `town` = '".$inputtown ."', `street` = '".$inputstreet."', `houseNumber` = '".$inputhouseNumber."', `motherName` = '".$inputmothername."', `student` = '".$inputstudent."', `personID` = '".$inputpersonid."', `updated_at` = NOW() WHERE `readers`.`id` = '".$inputid."';");
+            echo"Sikeres módosítás!";
         }
         break;
     case "felhasznalofelvetel":
@@ -129,7 +125,8 @@ switch ($_GET["action"]) {
             $inputstreet = $_POST["inputstreet"];
             $inputhouseNumber = $_POST["inputhouseNumber"];
             $inputtownid = $_POST["inputtownid"];
-            $productByid = $db_handle->addQuery("INSERT INTO `readers` (`id`, `name`, `dateOfBirth`, `mobilNumber`, `email`, `townID`, `town`, `street`, `houseNumber`, `mamberDate`, `motherName`, `student`, `personID`, `created_at`, `updated_at`) VALUES (NULL, '".$inputname."', '".$inputdate."', '".$inputmobil."', '".$inputemail."', '".$inputtownid."', '".$inputtown."', '".$inputstreet."', '".$inputhouseNumber."', NOW(), '".$inputmothername."', '".$inputstudent."', '".$inputpersonid."', NOW(), NOW())");
+            $productByid = $db_handle->addQuery("INSERT INTO `readers` (`id`, `name`, `dateOfBirth`, `mobilNumber`, `email`, `townID`, `town`, `street`, `houseNumber`, `motherName`, `student`, `personID`, `created_at`, `updated_at`) VALUES (NULL, '".$inputname."', '".$inputdate."', '".$inputmobil."', '".$inputemail."', '".$inputtownid."', '".$inputtown."', '".$inputstreet."', '".$inputhouseNumber."', '".$inputmothername."', '".$inputstudent."', '".$inputpersonid."', NOW(), NOW())");
+            echo "Sikeres hozzáadás";
             break;
         }
     case "bejelentkezes":

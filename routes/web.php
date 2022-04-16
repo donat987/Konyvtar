@@ -35,7 +35,7 @@ Route::get('/konyvkolcsonzes', function () {
 Route::get('/konyvkezeles', function () {
     return view('addbook');
 });
-Route::get('/olvasohozzaadasa', function () {
+Route::get('/kolcsonzohozzaad', function () {
     return view('adduser');
 });
 

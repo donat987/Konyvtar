@@ -84,7 +84,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" href="/olvasohozzaadasa">Olvasó hozzáadása</a>
+                            <a class="nav-link active" href="/kolcsonzohozzaad">Olvasó hozzáadása</a>
                         </li>
                     </ul>
                 </div>
@@ -93,7 +93,7 @@
     </header>
 
     <div class="kolcsonzo">
-        <form enctype='multipart/form-data' method='post' id="form1" title="" action="action.php?action=felhasznalomodositasa">
+        <form enctype='multipart/form-data' method='post' id="form1" title="" action="/action.php?action=felhasznalomodositasa">
             <center><p id="hiba"></p></center>
                 <div class="form-row">
                   <div class="form-group col-md-6">
@@ -174,6 +174,7 @@
                         <input type="text" class="form-control" id="inputid" placeholder="Település" value="{{$olvaso->id}}" readonly>
                     </div>
                 </div>
+                
                 <button type="submit" id='Submit' name='submit' class="btn btn-primary btn-lg btn-block">Módosítás</button>
               </form>
     </div>
@@ -193,21 +194,9 @@
             var k = {inputtownid: $('#inputtownid').val()};
             var l = {inputid: $('#inputid').val()};
             $.ajax({
-                url: "action.php?action=felhasznalomodositasa",
+                url: "/action.php?action=felhasznalomodositasa",
                 method: "post",
-                data: {inputname: a.inputname,
-                    inputdate: b.inputdate,
-                    inputstudent: c.inputstudent,
-                    inputmobil: d.inputmobil,
-                    inputemail: e.inputemail,
-                    inputmothername: f.inputmothername,
-                    inputpersonid: g.inputpersonid,
-                    inputtown: h.inputtown,
-                    inputstreet: i.inputstreet,
-                    inputhouseNumber: j.inputhouseNumber,
-                    inputtownid: k.inputtownid,
-                    inputid: l.inputid
-                },
+                data: {inputname: a.inputname, inputdate: b.inputdate, inputstudent: c.inputstudent, inputmobil: d.inputmobil, inputemail: e.inputemail, inputmothername: f.inputmothername, inputpersonid: g.inputpersonid, inputtown: h.inputtown, inputstreet: i.inputstreet, inputhouseNumber: j.inputhouseNumber, inputtownid: k.inputtownid, inputid: l.inputid},
                 success: function (data)
                 {
                     if (data == "") {
@@ -223,7 +212,6 @@
 
 
     <!-- Bootstrap core JavaScript -->
-    <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
 

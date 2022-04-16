@@ -1,6 +1,6 @@
 <?php
 class DBController {
-	private $host = "localhost";
+	private $host = "127.0.0.1";
 	private $user = "root";
 	private $password = "";
 	private $database = "konyvtar";

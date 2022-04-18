@@ -61,7 +61,7 @@
                         <a class="nav-link active" href="/kolcsonzok">Olvasó felvétele/módosítás</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/konyvkezeles">Könyvek felvétele/módosítás</a>
+                        <a class="nav-link" href="/konyvek">Könyvek felvétele/módosítás</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="action.php?action=kijelentkezes">Kijelentkezés</a>

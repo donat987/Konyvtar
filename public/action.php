@@ -129,6 +129,116 @@ switch ($_GET["action"]) {
             echo "Sikeres hozzáadás";
             break;
         }
+        case "konyvmodositasa":
+            if(!$_POST["inputname"]){
+                echo"Kötelező a címet megadni!";
+                break;
+            }
+            if(!$_POST["inputdate"]){
+                echo"Kötelező a megjelenés dátumát megadni!";
+                break;
+            }
+            if(!$_POST["inputcategory"]){
+                echo"Kötelező a kategória!";
+                break;
+            }
+            if(!$_POST["inputlanguage"]){
+                echo"Kötelező a könyv nyelvét megadni!";
+                break;
+            }
+            if(!$_POST["inputszerzo"]){
+                echo"Kötelező az szerzőt megadni!";
+                break;
+            }
+            if(!$_POST["inputisbn"]){
+                echo"Kötelező az ISBN-szám!";
+                break;
+            }
+            if(!$_POST["inputkiado"]){
+                echo"Kötelező a kiadó megadása!";
+                break;
+            }
+            
+            if(!$_POST["inputar"]){
+                echo"Kötelező a könyv árát megadni!";
+                break;
+            }
+            if(!$_POST["inputmennyiseg"]){
+                echo"Kötelező a könyv mennyiségének megadása!";
+                break;
+            }
+            
+            else{
+                $inputname=$_POST["inputname"];
+                $inputdate=$_POST["inputdate"];
+                $inputcategory=$_POST["inputcategory"];
+                $inputlanguage=$_POST["inputlanguage"];
+                $inputszerzo=$_POST["inputszerzo"];
+                $inputisbn=$_POST["inputisbn"];
+                $inputkiado=$_POST["inputkiado"];
+                $inputfile=$_POST["inputcustomFile"];
+                $inputar=$_POST["inputar"];
+                $inputmennyiseg=$_POST["inputmennyiseg"];
+                $inputid=$_POST["inputid"];
+                $productByid = $db_handle->addQuery("UPDATE `books` SET `name` = '".$inputname."', `appearance` = '".$inputdate."', `ISBN` = '".$inputisbn."', `author` = '".$inputszerzo."', `stock` = '".$inputmennyiseg."', `publisher` = '".$inputkiado ."', `picture` = '".$inputfile."', `price` = '".$inputar."', `categoryID` = '".$inputcategory."', `languageID` = '".$inputlanguage."', `updated_at` = NOW() WHERE `books`.`id` = '".$inputid."';");
+                echo"Sikeres módosítás!";
+            }
+            break;
+        case "konyvfelvetel":
+                if(!$_POST["inputname"]){
+                    echo"Kötelező a címet megadni!";
+                    break;
+                }
+                if(!$_POST["inputdate"]){
+                    echo"Kötelező a megjelenés dátumát megadni!";
+                    break;
+                }
+                if(!$_POST["inputcategory"]){
+                    echo"Kötelező a kategória!";
+                    break;
+                }
+                if(!$_POST["inputlanguage"]){
+                    echo"Kötelező a könyv nyelvét megadni!";
+                    break;
+                }
+                if(!$_POST["inputszerzo"]){
+                    echo"Kötelező az szerzőt megadni!";
+                    break;
+                }
+                if(!$_POST["inputisbn"]){
+                    echo"Kötelező az ISBN-szám!";
+                    break;
+                }
+                if(!$_POST["inputkiado"]){
+                    echo"Kötelező a kiadó megadása!";
+                    break;
+                }
+                
+                if(!$_POST["inputar"]){
+                    echo"Kötelező a könyv árát megadni!";
+                    break;
+                }
+                if(!$_POST["inputmennyiseg"]){
+                    echo"Kötelező a könyv mennyiségének megadása!";
+                    break;
+                }
+                
+                else{
+                    $inputname=$_POST["inputname"];
+                    $inputdate=$_POST["inputdate"];
+                    $inputcategory=$_POST["inputcategory"];
+                    $inputlanguage=$_POST["inputlanguage"];
+                    $inputszerzo=$_POST["inputszerzo"];
+                    $inputisbn=$_POST["inputisbn"];
+                    $inputkiado=$_POST["inputkiado"];
+                    $inputfile=$_POST["inputcustomFile"];
+                    $inputar=$_POST["inputar"];
+                    $inputmennyiseg=$_POST["inputmennyiseg"];
+                    $inputid=$_POST["inputid"];
+                    $productByid = $db_handle->addQuery("INSERT INTO `books` (`id`,`ISBN`,`name`,`author`,`stock`,`publisher`,`picture`,`price`,`categoryID`,`languageID`,`created_at`,`updated_at`) VALUES (NULL,'".$inputisbn."','".$inputname."','".$inputszerzo."','".$inputmennyiseg."','".$inputkiado."','".$inputfile."','".$inputar."','".$inputcategory."','".$inputlanguage."',NOW(),NOW())");
+                    echo"Sikeres módosítás!";
+                }
+                break;
     case "bejelentkezes":
         if(!$_POST["username"]){
             echo"Kötelező a felhasználónév!";

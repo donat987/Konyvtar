@@ -58,10 +58,10 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/kolcsonzok">Olvasó felvétele/módosítás</a>
+                        <a class="nav-link" href="/kolcsonzok">Olvasó felvétele/módosítás</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/konyvek">Könyvek felvétele/módosítás</a>
+                        <a class="nav-link active" href="/konyvek">Könyvek felvétele/módosítás</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="action.php?action=kijelentkezes">Kijelentkezés</a>
@@ -84,7 +84,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link " href="/kolcsonzohozzaad">Olvasó hozzáadása</a>
+                            <a class="nav-link " href="/konyvhozzaad">Könyv hozzáadása</a>
                         </li>
                     </ul>
                 </div>
@@ -95,25 +95,27 @@
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th scope="col">Név</th>
-                <th scope="col">Születési idő</th>
-                <th scope="col">Mobil</th>
-                <th scope="col">Email cím</th>
-                <th scope="col">Személyiszám</th>
+                <th scope="col">ISBN</th>
+                <th scope="col">Cím</th>
+                <th scope="col">Szerző</th>
+                <th scope="col">Mennyiség</th>
+                <th scope="col">Ár</th>
+                <th scope="col">Kiadó</th>
                 <th scope="col">Módosítás</th>
             </tr>
         </thead>
         <tbody>
             <?php
-            $olvaso = DB::select("select * from readers");
-            foreach($olvaso as $o){
+            $konyv = DB::select("select * from books");
+            foreach($konyv as $k){
                 echo"<tr>";
-                    echo"<th>" . $o->name . "</th>";
-                    echo"<th>" . $o->dateOfBirth . "</th>";
-                    echo"<th>" . $o->mobilNumber . "</th>";
-                    echo"<th>" . $o->email . "</th>";
-                    echo"<th>" . $o->personID . "</th>";
-                    echo"<td><a id='" . $o->id . "' href='kolcsonzok/" . $o->id . "' type='button' class='btn btn-dark'>Modosítás</a></td>";
+                    echo"<th>" . $k->ISBN . "</th>";
+                    echo"<th>" . $k->name . "</th>";
+                    echo"<th>" . $k->author . "</th>";
+                    echo"<th>" . $k->stock . "</th>";
+                    echo"<th>" . $k->price . "</th>";
+                    echo"<th>" . $k->publisher . "</th>";
+                    echo"<td><a id='" . $k->id . "' href='konyvek/" . $k->id . "' type='button' class='btn btn-dark'>Modosítás</a></td>";
                 echo"</tr>";
             }
             ?>

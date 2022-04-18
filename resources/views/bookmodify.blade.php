@@ -17,8 +17,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/owl.css')}}">
     <link href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
     <script src="{{asset('vendor/jquery/jquery-3.2.1.min.js')}}"></script>
-
-  </head>
+   </head>
 
   <body>
 
@@ -58,10 +57,10 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/kolcsonzok">Olvasó felvétele/módosítás</a>
+                        <a class="nav-link" href="/kolcsonzok">Olvasó felvétele/módosítás</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/konyvek">Könyvek felvétele/módosítás</a>
+                        <a class="nav-link  active" href="/konyvek">Könyvek felvétele/módosítás</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="action.php?action=kijelentkezes">Kijelentkezés</a>
@@ -84,7 +83,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" href="/kolcsonzohozzaad">Olvasó hozzáadása</a>
+                            <a class="nav-link active" href="/konyvhozzaad">Könyv hozzáadása</a>
                         </li>
                     </ul>
                 </div>
@@ -93,110 +92,130 @@
     </header>
 
     <div class="kolcsonzo">
-        <form enctype='multipart/form-data' method='post' id="form1" title="" action="/action.php?action=felhasznalomodositasa">
+        <form enctype='multipart/form-data' method='post' id="form1" title="" action="/action.php?action=konyvmodositasa">
             <center><p id="hiba"></p></center>
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <label for="inputname">Név</label>
-                    <input type="name" class="form-control" id="inputname" placeholder="Név" value="{{$olvaso->name}}">
+                  <div class="form-row">
+                    <label for="inputname">Cím</label>
+                    <input type="name" class="form-control" id="inputname" placeholder="Cím" value="{{$konyv->name}}">
+                 </div>
+                 <div class="form-row">
+                 <div class="form-group col-md-4">
+                    <label for="inputdate">Megjelenés</label>
+                    <input type="date" class="form-control" id="inputdate" placeholder="Születésidátum" value="{{$konyv->appearance}}">
                   </div>
                   <div class="form-group col-md-4">
-                    <label for="inputdate">Születési dátum</label>
-                    <input type="date" class="form-control" id="inputdate" placeholder="Születésidátum" value="{{$olvaso->dateOfBirth}}">
-                  </div>
-                  <div class="form-group col-md-2">
-                    <label for="inputemail">Diák</label>
-                    <select id="inputstudent" class="form-control">
+                    <label for="inputcategory">Kategoria</label>
+                    <select id="inputcategory" class="form-control">
                         <?php
-                        if($olvaso->student == 0){
-                            echo"<option >válassz...</option>";
-                            echo"<option selected value='0' >nem</option>";
-                            echo"<option value='1'>igen</option>";
-                        }
-                        else{
-                            echo"<option >válassz...</option>";
-                            echo"<option value='0'>nem</option>";
-                            echo"<option selected value='1'>igen</option>";
+                        $category = DB::select("SELECT * FROM categories");
+                        
+                        if (isset($category)) {
+                          echo"<option >válassz...</option>";
+                          foreach($category as $c){
+                            if($c->id==$konyv->categoryID){
+                              echo"<option selected value=$c->id>".$c->category."</option>";
+                            }
+                            else{
+                              echo"<option value=$c->id>".$c->category."</option>";
+                            }
+                          }
                         }
                         ?>
                       </select>
                   </div>
-                </div>
-                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <label for="inputlanguage">Nyelv</label>
+                    <select id="inputlanguage" class="form-control">
+                        <?php
+                        $languages = DB::select("SELECT * FROM languages");
+
+                        if (isset($languages)) {
+                          echo"<option value=>válassz...</option>";
+                          foreach($languages as $l){
+                            if($l->id == $konyv->languageID){
+                              echo"<option selected value=$l->id>".$l->language."</option>";
+                            }
+                            else {
+                              echo"<option value=$l->id>".$l->language."</option>";
+                            }
+                          }
+                        
+                        }
+                        ?>
+                      </select>
+                  </div>
+                 </div>
+                 <div class="form-row">
                     <div class="form-group col-md-6">
-                      <label for="inputmobil">Telefonszám</label>
-                      <input type="tel" class="form-control" id="inputmobil" placeholder="Telefonszám" value="{{$olvaso->mobilNumber}}">
+                      <label for="inputszerzo">Szerő</label>
+                      <input type="text" class="form-control" id="inputszerzo" placeholder="Szerző" value="{{$konyv->author}}">
                     </div>
-                    <div class="form-group col-md-6">
-                      <label for="inputemail">Email</label>
-                      <input type="email" class="form-control" id="inputemail" placeholder="Emailcím" value="{{$olvaso->email}}">
+                    <div class="form-group col-md-6" >
+                        <label for="inputkiado">Kiadó</label>
+                        <input type="text" class="form-control" id="inputkiado" placeholder="Kiadó neve" value="{{$konyv->publisher}}">
                     </div>
                   </div>
                 <div class="form-row">
-                    <div class="form-group col-md-4" >
-                        <label for="inputmothername">Anyja neve</label>
-                        <input type="text" class="form-control" id="inputmothername" placeholder="Anyja neve" value="{{$olvaso->motherName}}">
-                    </div>
-                    <div class="form-group col-md-4" >
-                        <label for="inputpersonid">Személyigazolvány szám</label>
-                        <input type="text" class="form-control" id="inputpersonid" placeholder="Személyigazolvány szám" value="{{$olvaso->personID}}">
-                    </div>
-                    <div class="form-group col-md-4" >
-                        <label for="inputtown">Település</label>
-                        <input type="text" class="form-control" id="inputtown" placeholder="Település" value="{{$olvaso->town}}">
+                    
+                    <div class="form-group col-md-12">
+                      <label for="inputisbn">ISBN</label>
+                      <input type="text" class="form-control" id="inputisbn" placeholder="ISBN" value="{{$konyv->ISBN}}">
                     </div>
                 </div>
                 <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="inputstreet">Utca</label>
-                    <input type="text" class="form-control" id="inputstreet" placeholder="Utca" value="{{$olvaso->street}}">
+                  <div class="form-group col-md-4">
+                    <label for="inputar">Ár</label>
+                    <input type="text" class="form-control" id="inputar" placeholder="Ár" value="{{$konyv->price}}">
                   </div>
                   <div class="form-group col-md-4">
-                    <label for="inputhouseNumber">Házszám / emelet / ajtó</label>
-                    <input type="text" class="form-control" id="inputhouseNumber" placeholder="Házszám / emelet / ajtó" value="{{$olvaso->houseNumber}}">
+                    <label for="inputmennyiseg">Mennyiség</label>
+                    <input type="text" class="form-control" id="inputmennyiseg" placeholder="Mennyiség" value="{{$konyv->stock}}">
                   </div>
-                  <div class="form-group col-md-2">
-                    <label for="inputtownid">Irányítószám</label>
-                    <input type="text" class="form-control" id="inputtownid" placeholder="Irányítószám" value="{{$olvaso->townID}}">
+                  <div class="form-group col-md-4">
+                    <label for="inputid">ID</label>
+                    <input type="text" class="form-control" id="inputid" placeholder="ID" value="{{$konyv->id}}">
                   </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-4" >
-                        <label for="inputregistration">Regisztrálva</label>
-                        <input type="text" class="form-control" id="inputregistration" placeholder="Regisztralva" value="{{$olvaso->created_at}}" readonly>
+                <div class="form-group col-md-12" >
+                    <div class="custom-file">
+                      <div class="mb-3">
+                        <label for="inputcustomFile" class="form-label">Képfeltöltés</label>
+                        <input class="form-control" type="file" id="inputcustomFile">
+                      </div>
                     </div>
-                    <div class="form-group col-md-4" >
-                        <label for="inputmodify">Módosítva</label>
-                        <input type="text" class="form-control" id="inputmodify" placeholder="Módosítva" value="{{$olvaso->updated_at}}" readonly>
-                    </div>
-                    <div class="form-group col-md-4" >
-                        <label for="inputid">ID</label>
-                        <input type="text" class="form-control" id="inputid" placeholder="Település" value="{{$olvaso->id}}" readonly>
-                    </div>
+                      </div>
+                      </div>
+                  </div>
+                  <div class="form-group col-md-2">
+                    <img src="../assets/images/{{$konyv->picture}}" alt="Error">;
+                  </div>
                 </div>
-                
                 <button type="submit" id='Submit' name='submit' class="btn btn-primary btn-lg btn-block">Módosítás</button>
               </form>
+
     </div>
     <script>
         $("#form1").submit(function (event) {
             event.preventDefault();
+            var name = document.getElementById('inputcustomFile');
             var a = {inputname: $('#inputname').val()};
             var b = {inputdate: $('#inputdate').val()};
-            var c = {inputstudent: $('#inputstudent').val()};
-            var d = {inputmobil: $('#inputmobil').val()};
-            var e = {inputemail: $('#inputemail').val()};
-            var f = {inputmothername: $('#inputmothername').val()};
-            var g = {inputpersonid: $('#inputpersonid').val()};
-            var h = {inputtown: $('#inputtown').val()};
-            var i = {inputstreet: $('#inputstreet').val()};
-            var j = {inputhouseNumber: $('#inputhouseNumber').val()};
-            var k = {inputtownid: $('#inputtownid').val()};
-            var l = {inputid: $('#inputid').val()};
+            var c = {inputcategory: $('#inputcategory').val()};
+            var d = {inputlanguage: $('#inputlanguage').val()};
+            var e = {inputszerzo: $('#inputszerzo').val()};
+            var f = {inputisbn: $('#inputisbn').val()};
+            var g = {inputkiado: $('#inputkiado').val()};
+            var h = {inputcustomFile: name.files.item(0).name};
+            var i = {inputar: $('#inputar').val()};
+            var j = {inputmennyiseg: $('#inputmennyiseg').val()};
+            var k = {inputid: $('#inputid').val()};
             $.ajax({
-                url: "/action.php?action=felhasznalomodositasa",
+                url: "/action.php?action=konyvmodositasa",
                 method: "post",
-                data: {inputname: a.inputname, inputdate: b.inputdate, inputstudent: c.inputstudent, inputmobil: d.inputmobil, inputemail: e.inputemail, inputmothername: f.inputmothername, inputpersonid: g.inputpersonid, inputtown: h.inputtown, inputstreet: i.inputstreet, inputhouseNumber: j.inputhouseNumber, inputtownid: k.inputtownid, inputid: l.inputid},
+                data: {inputname: a.inputname, inputdate: b.inputdate, inputcategory: c.inputcategory, inputlanguage: d.inputlanguage, inputszerzo: e.inputszerzo, inputisbn: f.inputisbn, inputkiado: g.inputkiado, inputcustomFile: h.inputcustomFile, inputar: i.inputar, inputmennyiseg: j.inputmennyiseg, inputid: k.inputid},
                 success: function (data)
                 {
                     if (data == "") {

@@ -47,10 +47,10 @@
                 </a>
               </li>
               <li class="nav-item ">
-                <a class="nav-link" href="/konyvkezeles">Könyvek kezelése</a>
+                <a class="nav-link" href="/konyvek">Könyvek kezelése</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/kolcsonzohozzaad">Köcsönző hozzáadása</a>
+                <a class="nav-link" href="/kolcsonzohozzaad">Kölcsönző hozzáadása</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/action.php?action=kijelentkezes">Kejelentkezés</a>

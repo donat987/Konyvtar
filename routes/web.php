@@ -33,6 +33,9 @@ Route::get('/konyvkolcsonzes', function () {
     return view('bookrental');
 });
 Route::get('/konyvkezeles', function () {
+    return view('booklist');
+});
+Route::get('/konyvhozzaad', function () {
     return view('addbook');
 });
 Route::get('/kolcsonzohozzaad', function () {
@@ -42,3 +45,5 @@ Route::get('/kolcsonzohozzaad', function () {
 Route::get('/kolcsonzok',[App\Http\Controllers\ReadersController::class, 'index']);
 Route::get('/kolcsonzok/{readers}',[App\Http\Controllers\ReadersController::class, 'show']);
 
+Route::get('/konyvek',[App\Http\Controllers\BooksController::class, 'index']);
+Route::get('/konyvek/{books}',[App\Http\Controllers\BooksController::class, 'show']);

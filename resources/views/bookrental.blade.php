@@ -1,108 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('adminlayout')
+@section('content')
+<div class="kolcsonzo">
+    <form enctype='multipart/form-data' method='post' id="form1" title="" action="/action.php?action=kolcsonnev">
+        <select id="nevvalaszt" class="form-select" aria-label="Default select example"  name='redersid' onchange='if(this.value != 0) { this.form.submit(); }'>
+            <option selected>Open this select menu</option>
+            <?php
+                $olvaso = DB::select("select * from readers");
+                foreach($olvaso as $o){
+                    echo "<option value='" . $o->id . "'>".$o->name." #".$o->personID."</option>";
+                }
+            ?>
+        </select>
+    </form>
+    <div id="nevadat"></div>
+</div>
+<script>
+     $("#form1").submit(function (event) {
+        event.preventDefault();
+        var a = {nevvalaszt: $('#nevvalaszt').val()};
+            $.ajax({
+                url: "/action.php?action=kolcsonnev",
+                data: {nevvalaszt: a.nevvalaszt},
+                type: 'POST',
+                success: function (data)
+                {
+                    if (data != "") {
+                        $('#nevadat').html(data);
+                    }
+                }
+            });
 
-  <head>
+        });
+</script>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-
-    <title>Incidens Kar</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/templatemo-sixteen.css">
-    <link rel="stylesheet" href="assets/css/owl.css">
-
-  </head>
-
-  <body>
-
-    <!-- ***** Preloader Start ***** -->
-    <div id="preloader">
-        <div class="jumper">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>
-    <!-- ***** Preloader End ***** -->
-
-    <!-- Header -->
-    <header class="">
-      <nav class="navbar navbar-expand-lg">
-        <div class="container">
-          <a class="navbar-brand" href="/konyvkolcsonzes"><h2>Incidens <em>Kar</em></h2></a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item ">
-                <a class="nav-link active" href="/konyvkolcsonzes">Kölcsönzés
-                  <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item ">
-                <a class="nav-link" href="/konyvek">Könyvek kezelése</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/kolcsonzohozzaad">Kölcsönző hozzáadása</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/action.php?action=kijelentkezes">Kejelentkezés</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
-
-
-
-    <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="inner-content">
-              <p>Copyright &copy; 2020 INCIDENSKAR Co., Ltd.
-
-            - Design: <a rel="nofollow noopener" href="https://templatemo.com" target="_blank">TemplateMo</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-
-    <!-- Additional Scripts -->
-    <script src="assets/js/custom.js"></script>
-    <script src="assets/js/owl.js"></script>
-    <script src="assets/js/slick.js"></script>
-    <script src="assets/js/isotope.js"></script>
-    <script src="assets/js/accordions.js"></script>
-
-
-    <script language = "text/Javascript">
-      cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
-      function clearField(t){                   //declaring the array outside of the
-      if(! cleared[t.id]){                      // function makes it static and global
-          cleared[t.id] = 1;  // you could use true and false, but that's more typing
-          t.value='';         // with more chance of typos
-          t.style.color='#fff';
-          }
-      }
-    </script>
-
-
-  </body>
-
-</html>
+@endsection

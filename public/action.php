@@ -6,6 +6,9 @@ require('connection.php');
 session_start();
 $db_handle = new DBController();
 switch ($_GET["action"]) {
+    case "kolcsonnev":
+            print_r($_POST);
+        break;
     case "felhasznalomodositasa":
         if(!$_POST["inputname"]){
             echo"Kötelező a nevet megadni!";
@@ -158,7 +161,7 @@ switch ($_GET["action"]) {
                 echo"Kötelező a kiadó megadása!";
                 break;
             }
-            
+
             if(!$_POST["inputar"]){
                 echo"Kötelező a könyv árát megadni!";
                 break;
@@ -167,7 +170,7 @@ switch ($_GET["action"]) {
                 echo"Kötelező a könyv mennyiségének megadása!";
                 break;
             }
-            
+
             else{
                 $inputname=$_POST["inputname"];
                 $inputdate=$_POST["inputdate"];
@@ -213,7 +216,7 @@ switch ($_GET["action"]) {
                     echo"Kötelező a kiadó megadása!";
                     break;
                 }
-                
+
                 if(!$_POST["inputar"]){
                     echo"Kötelező a könyv árát megadni!";
                     break;
@@ -222,8 +225,22 @@ switch ($_GET["action"]) {
                     echo"Kötelező a könyv mennyiségének megadása!";
                     break;
                 }
-                
+
                 else{
+                    $kepnev = $_FILES["inputcustomFile"]["name"];
+                    $fajl = substr($kepnev, 0, strripos($kepnev, '.'));
+                    $nevm = substr($kepnev, strripos($kepnev, '.'));
+                    $fajlmeret = $_FILES["inputcustomFile"]["size"];
+                    $fajltipus = array('.PNG', '.png');
+                    $ujnev1 = "";
+                    if ($_FILES["inputcustomFile"]["name"] != "") {
+                        echo"ok\n";
+
+                            $ujnev1 = md5($fajl) . rand() . $nevm;
+                            print_r($ujnev1);
+                            move_uploaded_file($_FILES["inputcustomFile"]["tmp_name"], "images/" . $ujnev1);
+
+                    }
                     $inputname=$_POST["inputname"];
                     $inputdate=$_POST["inputdate"];
                     $inputcategory=$_POST["inputcategory"];
@@ -231,11 +248,9 @@ switch ($_GET["action"]) {
                     $inputszerzo=$_POST["inputszerzo"];
                     $inputisbn=$_POST["inputisbn"];
                     $inputkiado=$_POST["inputkiado"];
-                    $inputfile=$_POST["inputcustomFile"];
                     $inputar=$_POST["inputar"];
                     $inputmennyiseg=$_POST["inputmennyiseg"];
-                    $inputid=$_POST["inputid"];
-                    $productByid = $db_handle->addQuery("INSERT INTO `books` (`id`,`ISBN`,`name`,`author`,`stock`,`publisher`,`picture`,`price`,`categoryID`,`languageID`,`created_at`,`updated_at`) VALUES (NULL,'".$inputisbn."','".$inputname."','".$inputszerzo."','".$inputmennyiseg."','".$inputkiado."','".$inputfile."','".$inputar."','".$inputcategory."','".$inputlanguage."',NOW(),NOW())");
+                    $productByid = $db_handle->addQuery("INSERT INTO `books` (`appearance`,`id`,`ISBN`,`name`,`author`,`stock`,`publisher`,`picture`,`price`,`categoryID`,`languageID`,`created_at`,`updated_at`) VALUES ('".$inputdate."',NULL,'".$inputisbn."','".$inputname."','".$inputszerzo."','".$inputmennyiseg."','".$inputkiado."','".$ujnev1."','".$inputar."','".$inputcategory."','".$inputlanguage."',NOW(),NOW())");
                     echo"Sikeres módosítás!";
                 }
                 break;

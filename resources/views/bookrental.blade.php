@@ -2,7 +2,7 @@
 @section('content')
 <div class="kolcsonzo">
     <form enctype='multipart/form-data' method='post' id="form1" title="" action="/action.php?action=kolcsonnev">
-        <select id="nevvalaszt" class="form-select" aria-label="Default select example"  name='redersid' onchange='if(this.value != 0) { this.form.submit(); }'>
+        <select id="nevvalaszt" class="form-select" aria-label="Default select example"  name='redersid' onchange='fun()'>
             <option selected>Open this select menu</option>
             <?php
                 $olvaso = DB::select("select * from readers");
@@ -15,7 +15,7 @@
     <div id="nevadat"></div>
 </div>
 <script>
-     $("#form1").submit(function (event) {
+    function fun(){
         event.preventDefault();
         var a = {nevvalaszt: $('#nevvalaszt').val()};
             $.ajax({
@@ -29,8 +29,7 @@
                     }
                 }
             });
-
-        });
+    }
 </script>
 
 @endsection

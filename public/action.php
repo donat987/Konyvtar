@@ -7,7 +7,25 @@ session_start();
 $db_handle = new DBController();
 switch ($_GET["action"]) {
     case "kolcsonnev":
-            print_r($_POST);
+        print_r($_POST);
+        $productByid = $db_handle->runQuery("SELECT * from readers where id = '".$_POST["nevvalaszt"]."'");
+        print_r($productByid);
+        /*if(isset($productByid)){
+            $itemArray = array('name' => $productByid[0]["name"], 'username' => $productByid[0]["username"], 'password' => $productByid[0]["password"]);
+                if (MD5($jelszo) == $productByid[0]["password"] ) {
+                    $_SESSION["name"] = $productByid[0]["name"];
+                    echo"Sikeres bejelentkézes";
+                    ?>
+                    <script>
+                    window.location.assign("/konyvkolcsonzes");
+                    </script>
+                    <?php
+                }
+                else{
+                    echo"Hibás felhasználónév vagy jelszó!";
+
+                }
+        }*/
         break;
     case "felhasznalomodositasa":
         if(!$_POST["inputname"]){

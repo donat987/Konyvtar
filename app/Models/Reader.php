@@ -7,5 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reader extends Model
 {
+    protected $fillable = [
+        "name",
+        "dateOfBirth",
+        "mobilNumber",
+        "email",
+        "townID",
+        "town",
+        "street",
+        "houseNumber",
+        "motherName",
+        "student",
+        "personID"
+    ];
     use HasFactory;
 }

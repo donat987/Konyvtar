@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('appearance');
             $table->integer('stock')->nullable();
             $table->string('publisher');
-            $table->string('content');
+            $table->text('content');
             $table->string('picture');
             $table->integer('price')->nullable();
             $table->unsignedBigInteger('categoryID');

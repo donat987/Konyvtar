@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BooksController;
+use App\Http\Controllers\ReadersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,18 +34,24 @@ Route::get('/rolunk', function () {
 Route::get('/konyvkolcsonzes', function () {
     return view('bookrental');
 });
-Route::get('/konyvkezeles', function () {
-    return view('booklist');
-});
-Route::get('/konyvhozzaad', function () {
-    return view('addbook');
-});
-Route::get('/kolcsonzohozzaad', function () {
-    return view('adduser');
+
+
+Route::controller(ReadersController::class)->group(function(){
+    Route::get('kolcsonzok', 'index');
+    Route::post('kolcsonzok', 'store')->name('kolcsonzok.store');
+    Route::get('kolcsonzok/letrehozas', 'create');
+    Route::get('kolcsonzok/{readers}' , 'show');
+    Route::get('kolcsonzok/{readers}/modositas' , 'edit');
+    Route::put('kolcsonzok/{readers}', 'update');
+    Route::delete('kolcsonzok/{readers}', 'destroy');
 });
 
-Route::get('/kolcsonzok',[App\Http\Controllers\ReadersController::class, 'index']);
-Route::get('/kolcsonzok/{readers}',[App\Http\Controllers\ReadersController::class, 'show']);
-
-Route::get('/konyvek',[App\Http\Controllers\BooksController::class, 'index']);
-Route::get('/konyvek/{books}',[App\Http\Controllers\BooksController::class, 'show']);
+Route::controller(BooksController::class)->group(function(){
+    Route::get('konyvek', 'index');
+    Route::post('konyvek', 'store')->name('konyvek.store');
+    Route::get('konyvek/letrehozas', 'create');
+    Route::get('konyvek/{books}' , 'show');
+    Route::get('konyvek/{books}/modositas' , 'edit');
+    Route::put('konyvek/{books}', 'update');
+    Route::delete('konyvek/{books}', 'destroy');
+});

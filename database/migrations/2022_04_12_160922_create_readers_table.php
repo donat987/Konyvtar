@@ -24,10 +24,11 @@ return new class extends Migration
             $table->string('street');
             $table->string('houseNumber');
             $table->string('motherName');
-            $table->boolean('student');
+            $table->unsignedBigInteger('type');
             $table->string('personID');
-
             $table->timestamps();
+
+            $table->foreign('type')->references('id')->on('readerstype')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

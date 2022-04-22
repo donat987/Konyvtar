@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('publisher');
             $table->text('content');
             $table->string('picture');
+            $table->boolean('delete');
             $table->integer('price')->nullable();
             $table->unsignedBigInteger('categoryID');
             $table->unsignedBigInteger('languageID');

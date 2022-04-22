@@ -19,8 +19,15 @@
                 <label for="inputemail">Diák</label>
                 <select id="inputstudent" class="form-control">
                     <option selected>válassz...</option>
-                    <option value="0">nem</option>
-                    <option value="1">igen</option>
+                    <?php
+                    $type = DB::select('SELECT * FROM readerstype');
+
+                    if (isset($type)) {
+                        foreach ($type as $l) {
+                            echo "<option value=$l->id>" . $l->type . '</option>';
+                        }
+                    }
+                    ?>
                 </select>
             </div>
         </div>
@@ -88,7 +95,7 @@
             formData.append('inputhouseNumber', $('#inputhouseNumber').val());
             formData.append('inputtownid', $('#inputtownid').val());
             $.ajax({
-                url: "/kolcsonzok/{{ $olvaso->id }}",
+                url: "{{ route('kolcsonzok.store') }}",
                 data: formData,
                 processData: false,
                 contentType: false,

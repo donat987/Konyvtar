@@ -17,7 +17,7 @@ class Reader extends Model
         "street",
         "houseNumber",
         "motherName",
-        "student",
+        "type",
         "personID"
     ];
     use HasFactory;

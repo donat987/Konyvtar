@@ -129,7 +129,7 @@ class ReadersController extends Controller
                 "street" => $inputstreet,
                 "houseNumber" => $inputhouseNumber,
                 "motherName" => $inputmothername,
-                "student" => $inputstudent,
+                "type" => $inputstudent,
                 "personID" => $inputpersonid
             ]);
             echo "Sikeres hozzáadás!";

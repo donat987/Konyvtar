@@ -2,17 +2,22 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\Location;
 
 require('connection.php');
 session_start();
 $db_handle = new DBController();
 switch ($_GET["action"]) {
     case "kivesz":
-            print_r($_POST);
+            $olvasoid = $_POST["olvasoid"];
+            $konyvid = $_POST["konyvid"];
+            $napok = $db_handle->runQuery("SELECT `time`, `limit` FROM `readerstype` inner join readers on readers.type = readerstype.id WHERE readers.id = '".$olvasoid."'");
+            $visszahoz = date('Y-m-d', strtotime("+".$napok[0]["time"]." day"));
+            header('Location: /konyvkolcsonzes');
         break;
     case "kolcsonkonyv":
         $idk = explode("/",$_POST["konyvvalaszt"]);
-        $konyv = $db_handle->runQuery("SELECT picture, isbn, publisher, author, languages.language as nyelv, books.name as konyvnev, appearance, categories.category as kateg  from books inner join languages on books.languageID = languages.id inner join categories on books.categoryID = categories.id where books.id = '" . $idk[0] . "'");
+        $konyv = $db_handle->runQuery("SELECT books.id as id, picture, isbn, publisher, author, languages.language as nyelv, books.name as konyvnev, appearance, categories.category as kateg  from books inner join languages on books.languageID = languages.id inner join categories on books.categoryID = categories.id where books.id = '" . $idk[0] . "'");
         ?>
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -65,13 +70,13 @@ switch ($_GET["action"]) {
         </div>
         <form enctype='multipart/form-data' method='post' id="form1" title="" action="/action.php?action=kivesz">
             <input type="hidden" name="olvasoid" id="olvasoid" value="<?php echo $idk[0] ?>">
-            <input type="hidden"  id="konyvid" value="<?php echo $idk[1] ?>">
+            <input type="hidden" name="konyvid" id="konyvid" value="<?php echo $idk[1] ?>">
             <button type="submit" id='Submit' name='submit' class="btn btn-primary btn-lg btn-block">Kivesz</button>
         </form>
         <?php
         break;
     case "kolcsonnev":
-        $olvaso = $db_handle->runQuery("SELECT * from readers where id = '" . $_POST["nevvalaszt"] . "'");
+        $olvaso = $db_handle->runQuery("select * from readers inner join readerstype on readers.type = readerstype.id where readers.id = '" . $_POST["nevvalaszt"] . "'");
 ?>
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -83,14 +88,8 @@ switch ($_GET["action"]) {
                 <input type="date" class="form-control" id="inputdate" placeholder="Születésidátum" value='<?php echo $olvaso[0]['dateOfBirth']; ?>' readonly>
             </div>
             <div class="form-group col-md-2">
-                <label for="inputemail">Diák</label>
-                <?php
-                if ($olvaso[0]['student'] == 0) {
-                    echo "<input type='text' class='form-control' id='inputdate' placeholder='Diak' value='igen' readonly>";
-                } else {
-                    echo "<input type='text' class='form-control' id='inputdate' placeholder='Diak' value='nem' readonly>";
-                }
-                ?>
+                <label for="inputemail">Típus</label>
+                <input type="text" class="form-control" id="inputmothername" placeholder="Anyja neve" value="<?php echo $olvaso[0]['typename']; ?>" readonly>
             </div>
         </div>
         <div class="form-row">
@@ -135,7 +134,7 @@ switch ($_GET["action"]) {
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="inputregistration">Kölcsönző neve:</label>
-                    <select id="konyvvalaszt" class="form-select" aria-label="Default select example" name='redersid' onchange='fun()'>
+                    <select id="konyvvalaszt" class="form-select" aria-label="Default select example" name='redersid' onchange='funn()'>
                         <option selected>Open this select menu</option>
                         <?php
                         $konyv = $db_handle->runQuery('select * from books');
@@ -151,7 +150,7 @@ switch ($_GET["action"]) {
         </form>
         <div id="konyvdat"></div>
         <script>
-            function fun() {
+            function funn() {
                 event.preventDefault();
                 var a = {
                     konyvvalaszt: $('#konyvvalaszt').val()

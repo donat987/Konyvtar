@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->date('date');
             $table->date('backDate');
+            $table->boolean('back');
             $table->unsignedBigInteger('readerID');
             $table->unsignedBigInteger('bookID');
             $table->unsignedBigInteger('issuedBy');

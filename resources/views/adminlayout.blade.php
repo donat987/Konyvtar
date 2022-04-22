@@ -47,15 +47,15 @@ if ($ido > 5 and $ido < 9) {
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item ">
-                        <a class="nav-link {{ Request::path() === 'konyvkolcsonzes' ? 'active' : '' }}"" href="
+                        <a class="nav-link {{ Request::path() === 'konyvkolcsonzes' ? 'active' : '' }}" href="
                             /konyvkolcsonzes">Kölcsönzés</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::path() === 'kolcsonzok' ? 'active' : '' }}"" href="
+                        <a class="nav-link {{ Request::path() === 'kolcsonzok' ? 'active' : '' }}" href="
                             /kolcsonzok">Olvasó felvétele/módosítás</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::path() === 'konyvek' ? 'active' : '' }}"" href="
+                        <a class="nav-link {{ Request::path() === 'konyvek' ? 'active' : '' }}" href="
                             /konyvek">Könyvek felvétele/módosítás</a>
                     </li>
                     <li class="nav-item">

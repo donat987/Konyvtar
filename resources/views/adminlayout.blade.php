@@ -46,6 +46,10 @@ if ($ido > 5 and $ido < 9) {
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::path() === 'visszavet' ? 'active' : '' }}" href="
+                            /visszavet">Visszavét</a>
+                    </li>
                     <li class="nav-item ">
                         <a class="nav-link {{ Request::path() === 'konyvkolcsonzes' ? 'active' : '' }}" href="
                             /konyvkolcsonzes">Kölcsönzés</a>

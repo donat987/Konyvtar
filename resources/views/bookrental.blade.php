@@ -6,9 +6,9 @@
                 <label for="inputregistration">Kölcsönző neve:</label>
                 <select id="nevvalaszt" class="form-select" aria-label="Default select example" name='redersid'
                     onchange='fun()'>
-                    <option selected>Open this select menu</option>
+                    <option selected>Válassz...</option>
                     <?php
-                    $olvaso = DB::select('select * from readers');
+                    $olvaso = DB::select('select * from readers order by name');
                     foreach ($olvaso as $o) {
                         echo "<option value='" . $o->id . "'>" . $o->name . ' #' . $o->personID . '</option>';
                     }

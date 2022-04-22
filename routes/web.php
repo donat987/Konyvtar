@@ -35,6 +35,9 @@ Route::get('/konyvkolcsonzes', function () {
     return view('bookrental');
 });
 
+Route::get('/visszavet', function () {
+    return view('back');
+});
 
 Route::controller(ReadersController::class)->group(function(){
     Route::get('kolcsonzok', 'index');

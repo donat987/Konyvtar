@@ -17,6 +17,7 @@ class Book extends Model
         "content",
         "picture",
         "price",
+        "delete",
         "categoryID",
         "languageID",
     ];

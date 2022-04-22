@@ -69,6 +69,7 @@ class BooksController extends Controller
                 "author" => $inputszerzo,
                 "appearance" => $inputdate,
                 "stock" => $inputmennyiseg,
+                "delete" => '1',
                 "publisher" => $inputkiado,
                 "content" =>  $inputTartalom,
                 "price" => $inputar,
@@ -129,6 +130,7 @@ class BooksController extends Controller
                 "content" =>  $inputTartalom,
                 "picture" => $ujnev1,
                 "price" => $inputar,
+                "delete" => '1',
                 "categoryID" => $inputcategory,
                 "languageID" => $inputlanguage
             ]);

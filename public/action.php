@@ -65,7 +65,7 @@ switch ($_GET["action"]) {
         </div>
         <form enctype='multipart/form-data' method='post' id="form1" title="" action="/action.php?action=kivesz">
             <input type="hidden" name="olvasoid" id="olvasoid" value="<?php echo $idk[0] ?>">
-            <input type="hidden" name="konyvid" id="konyvid" value="<?php echo $idk[1] ?>">
+            <input type="hidden"  id="konyvid" value="<?php echo $idk[1] ?>">
             <button type="submit" id='Submit' name='submit' class="btn btn-primary btn-lg btn-block">Kivesz</button>
         </form>
         <?php

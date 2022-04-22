@@ -1,9 +1,9 @@
 <?php
 class DBController {
-	private $host = "127.0.0.1";
-	private $user = "root";
-	private $password = "";
-	private $database = "konyvtar";
+	private $host = "mysql.nethely.hu";
+	private $user = "konyvtar123";
+	private $password = "konyvtar";
+	private $database = "konyvtar123";
 	private $conn;
 
 	function __construct() {

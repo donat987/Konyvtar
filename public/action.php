@@ -16,10 +16,12 @@ switch ($_GET["action"]) {
             echo "Figyelem!\nA késett " . $keses . " napot!";
         }
         $kölcsönöz = $db_handle->addQuery("UPDATE `bookrentals` SET `ok` = '1' WHERE `bookrentals`.`id` = '" . $bookrentalsid . "'");
+        $kölcsönöz = $db_handle->addQuery("UPDATE `bookrentals` SET `backDate` = '" . date("Y-m-d") . "' WHERE `bookrentals`.`id` = '" . $bookrentalsid . "'");
         break;
     case "kifizetve":
         $bookid = $_POST["bookid"];
         $bookrentalsid = $_POST["bookrentalsid"];
+        $kölcsönöz = $db_handle->addQuery("UPDATE `bookrentals` SET `backDate` = '" . date("Y-m-d") . "' WHERE `bookrentals`.`id` = '" . $bookrentalsid . "'");
         $kölcsönöz = $db_handle->addQuery("UPDATE `bookrentals` SET `ok` = '1' WHERE `bookrentals`.`id` = '" . $bookrentalsid . "'");
         $book = $db_handle->runQuery("select * from books where id = '" . $bookid . "'");
         $stock = $book[0]["stock"] - 1;

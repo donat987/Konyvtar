@@ -93,9 +93,9 @@
     </div>
     <a href="/kolcsonzok" class="btn btn-primary btn-lg btn-block">Vissza</a>
     <?php
-    $konyvek = DB::select("SELECT * FROM `bookrentals` inner join books on books.id = bookrentals.bookID where bookrentals.readerID = '" . $olvaso->id . "'");
-    if (isset($konyvek)){
+    $konyvek = DB::select("SELECT * FROM `bookrentals` inner join books on books.id = bookrentals.bookID where bookrentals.readerID = '" . $olvaso->id . "' order by date desc");
     ?>
+    @if(isset($konyvek[0]))
     <h3 style="padding: 10px 0px">Eddig kivett könyvei:</h3>
     <table class="table table-bordered table-striped">
         <thead>
@@ -108,23 +108,23 @@
             </tr>
         </thead>
         <tbody>
-            <?php
-                foreach ($konyvek as $o) { ?>
+                @foreach ($konyvek as $o)
             <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
+                <th>{{$o->name}}</th>
+                <th>{{$o->author}}</th>
+                <th>{{$o->ISBN}}</th>
+                <th>{{$o->date}}</th>
+                @if($o->ok == 1)
+                <th>{{$o->backDate}}</th>
+                @endif
+                @if($o->ok == 0)
+                <th>Még nem hozta vissza</th>
+                @endif
             </tr>
-
-            <?php
-            }
-            ?>
+                @endforeach
         </tbody>
-        <?
-    }else{
-        echo"<h3 style='padding: 10px 0px'>Eddig nem vett ki még könyvet</h3>";
-    }
-                ?>
+        @endif
+        @if(!isset($konyvek[0]))
+        <h3 style="padding: 10px 0px">Eddig nem vett ki könyvet!</h3>
+        @endif
     @endsection

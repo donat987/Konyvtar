@@ -64,6 +64,34 @@
                 </div>
             </div>
         </nav>
+        @if (Request::path() === 'kereses')
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+            <div class="container">
+                <form class="form-inline" method="get" id="form" title="" action="/kereses">
+                    <div class=" form-row " style="flex-wrap: nowrap;">
+                        <div class="input-group mb-3">
+                            <input class="form-control" id="nev" name="nev" type="search"
+                                placeholder="Címe" aria-label="Search">
+                        </div>
+                        <div class="input-group mb-3">
+                            <input class="form-control" id="isbn" name="isbn" type="search"
+                                placeholder="isbn" aria-label="Search">
+                        </div>
+                        <div class="input-group mb-3">
+                            <input class="form-control" id="szerzo" name="szerzo" type="search"
+                                placeholder="Szező" aria-label="Search">
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Azonosító" id="azon" name="azon" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" form="form" type="submit">Keres</button>
+                            </div>
+                          </div>
+                    </div>
+                </form>
+            </div>
+        </nav>
+        @endif
     </header>
     @yield('content')
     <footer>

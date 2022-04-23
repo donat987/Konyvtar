@@ -26,11 +26,6 @@ class ReadersController extends Controller
         $olvaso = Reader::find($id);
         return view('user.edit', compact('olvaso'));
     }
-    public function destroy(Reader $readers)
-    {
-        $readers->delete();
-        return redirect('kolcsonzok');
-    }
     public function update(Request $request, Reader $readers)
     {
         if (!$_POST["inputname"]) {

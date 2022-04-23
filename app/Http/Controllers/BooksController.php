@@ -27,11 +27,6 @@ class BooksController extends Controller
         $konyv = Book::find($id);
         return view('book.edit', compact('konyv'));
     }
-    public function destroy(Book $books)
-    {
-        $books->delete();
-        return redirect('konyvek');
-    }
     public function update(Request $request, Book $books)
     {
         if (!$_POST["inputname"]) {
@@ -50,9 +45,7 @@ class BooksController extends Controller
             echo "Kötelező a kiadó megadása!";
         } else if (!$_POST["inputar"]) {
             echo "Kötelező a könyv árát megadni!";
-        } else if (!$_POST["inputmennyiseg"]) {
-            echo "Kötelező a könyv mennyiségének megadása!";
-        } else {
+        }  else {
             $inputname = $_POST["inputname"];
             $inputdate = $_POST["inputdate"];
             $inputcategory = $_POST["inputcategory"];
@@ -63,13 +56,17 @@ class BooksController extends Controller
             $inputar = $_POST["inputar"];
             $inputmennyiseg = $_POST["inputmennyiseg"];
             $inputTartalom = $_POST["inputTartalom"];
+            $inputelerheto = $_POST["inputelerheto"];
+            if($inputmennyiseg == 0){
+                $inputelerheto = 0;
+            }
             $books->update([
                 "name" => $inputname,
                 "ISBN" => $inputisbn,
                 "author" => $inputszerzo,
                 "appearance" => $inputdate,
                 "stock" => $inputmennyiseg,
-                "delete" => '1',
+                "delete" =>  $inputelerheto,
                 "publisher" => $inputkiado,
                 "content" =>  $inputTartalom,
                 "price" => $inputar,
@@ -118,6 +115,7 @@ class BooksController extends Controller
             $inputisbn = $_POST["inputisbn"];
             $inputkiado = $_POST["inputkiado"];
             $inputar = $_POST["inputar"];
+            $inputelerheto = $_POST["inputelerheto"];
             $inputmennyiseg = $_POST["inputmennyiseg"];
             $inputTartalom = $_POST["inputTartalom"];
             Book::create([
@@ -128,6 +126,7 @@ class BooksController extends Controller
                 "stock" => $inputmennyiseg,
                 "publisher" => $inputkiado,
                 "content" =>  $inputTartalom,
+                "delete" =>  $inputelerheto,
                 "picture" => $ujnev1,
                 "price" => $inputar,
                 "delete" => '1',

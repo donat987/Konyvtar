@@ -7,7 +7,7 @@
             <p id="hiba"></p>
         </center>
         <div class="form-row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-12">
                 <div class="form-row">
                     <label for="inputname">Cím</label>
                     <input type="name" class="form-control" id="inputname" placeholder="Cím">
@@ -66,17 +66,23 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-3">
                         <label for="inputar">Ár</label>
                         <input type="text" class="form-control" id="inputar" placeholder="Ár">
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-3">
                         <label for="inputmennyiseg">Mennyiség</label>
                         <input type="text" class="form-control" id="inputmennyiseg" placeholder="Mennyiség">
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-3">
+                        <label for="inputelerheto">Elérhető?</label>
+                        <select id="inputelerheto" class="form-control">
+                            <option selected>válassz...</option>
+                            <option value='1'>Igen</option>
+                            <option value='0'>Nem</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
                         <div class="custom-file">
                             <div class="mb-3">
                                 <label for="inputcustomFile" class="form-label">Képfeltöltés</label>
@@ -85,12 +91,15 @@
                         </div>
                     </div>
                 </div>
+
             </div>
-            <div class="form-group">
-                <label for="inputTartalom">Example textarea</label>
+            <div class="form-group col-md-12">
+                <label for="inputTartalom">Könyv leírása</label>
                 <textarea class="form-control" id="inputTartalom" rows="3"></textarea>
             </div>
+
         </div>
+
         <button type="submit" id='Submit' name='submit' class="btn btn-primary btn-lg btn-block">Felvétel</button>
     </form>
 

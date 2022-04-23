@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use phpDocumentor\Reflection\Location;
 
 require('connection.php');
@@ -10,20 +11,30 @@ $db_handle = new DBController();
 switch ($_GET["action"]) {
     case "visszahozva":
         $bookrentalsid = $_POST["bookrentalsid"];
+        $keses = (int)$_POST["kesett"];
+        if ($keses > 0) {
+            echo "Figyelem!\nA késett " . $keses . " napot!";
+        }
         $kölcsönöz = $db_handle->addQuery("UPDATE `bookrentals` SET `ok` = '1' WHERE `bookrentals`.`id` = '" . $bookrentalsid . "'");
-        header('Location: /visszavet');
         break;
     case "kifizetve":
         $bookid = $_POST["bookid"];
         $bookrentalsid = $_POST["bookrentalsid"];
         $kölcsönöz = $db_handle->addQuery("UPDATE `bookrentals` SET `ok` = '1' WHERE `bookrentals`.`id` = '" . $bookrentalsid . "'");
-        $book = $db_handle->runQuery("select * from books where id = '".$bookid."'");
-        $stock = $book[0]["stock"]-1;
-        $books = $db_handle->addQuery("UPDATE `books` SET `stock` = '".$stock."' WHERE `books`.`id` = '" . $bookid . "'");
-        header('Location: /visszavet');
+        $book = $db_handle->runQuery("select * from books where id = '" . $bookid . "'");
+        $stock = $book[0]["stock"] - 1;
+        $keses = (int)$_POST["kesett"];
+        if ($keses > 0) {
+            echo "Figyelem!\nA késett " . $keses . " napot!";
+        }
+        if ($stock == 0) {
+            $books = $db_handle->addQuery("UPDATE `books` SET `stock` = '" . $stock . "' WHERE `books`.`id` = '" . $bookid . "'");
+            $books = $db_handle->addQuery("UPDATE `books` SET `delete` = '" . $stock . "' WHERE `books`.`id` = '" . $bookid . "'");
+        } else {
+            $books = $db_handle->addQuery("UPDATE `books` SET `stock` = '" . $stock . "' WHERE `books`.`id` = '" . $bookid . "'");
+        }
         break;
     case "visszahoznev":
-        print_r($_POST);
         $olvaso = $db_handle->runQuery("select * from readers inner join readerstype on readers.type = readerstype.id where readers.id = '" . $_POST["nevvalaszt"] . "'");
 ?>
         <div class="form-row">
@@ -103,27 +114,104 @@ switch ($_GET["action"]) {
                     echo '<th>' . $o["vissza"] . '</th>';
                     $date1 = $o["kivette"];
                     $date2 = $o["vissza"];
-                    $p = (strtotime($date1) - strtotime($date2)) / (60 * 60 * 24);
-                    echo '<th>' . $p . '</th>';
+                    $p = (strtotime("now") - strtotime($date2)) / (60 * 60 * 24);
+                    echo '<th>' . (int)$p . '</th>';
                     echo '<th>' . $o["price"] . '</th>';
                     echo "<th><img src='images/" . $o["picture"] . "' style='height: 150px;'></th>";
-                    echo "<td><form method='POST' action='action.php?action=kifizetve' ><input type='hidden' name='bookrentalsid' id='bookrentalsid' value='" . $o["bookrentalsid"] . "'><input type='hidden' name='bookid' id='bookid' value='" . $o["bookid"] . "'><button type='submit' id='Submit' name='submit'>Kivizette</button></form></td>";
-                    echo "<td><form method='POST' action='action.php?action=visszahozva' ><input type='hidden' name='bookrentalsid' id='bookrentalsid' value='" . $o["bookrentalsid"] . "'><button type='submit' id='Submit' name='submit'>Visszahozta</button></form></td>";
+                    echo "<td><form id='form3' method='POST' action='action.php?action=kifizetve' ><input type='hidden' name='kesett' id='kesett' value='" . $p . "'><input type='hidden' name='bookrentalsid' id='bookrentalsid' value='" . $o["bookrentalsid"] . "'><input type='hidden' name='bookid' id='bookid' value='" . $o["bookid"] . "'><button type='submit' id='Submit' name='submit'>Kivizette</button></form></td>";
+                    echo "<td><form id='form4' method='POST' action='action.php?action=visszahozva' ><input type='hidden' name='kesett' id='kesett' value='" . $p . "'><input type='hidden' name='bookrentalsid' id='bookrentalsid' value='" . $o["bookrentalsid"] . "'><button type='submit' id='Submit' name='submit'>Visszahozta</button></form></td>";
                     echo '</tr>';
                 }
                 ?>
             </tbody>
         </table>
+        <script type="text/javascript">
+            $("#form3").submit(function(event) {
+                event.preventDefault();
+                var data = new FormData();
+                let myForm = document.getElementById('form3');
+                let formData = new FormData(myForm);
+                formData.append('kesett', $('#kesett').val());
+                formData.append('bookrentalsid', $('#bookrentalsid').val());
+                formData.append('bookid', $('#bookid').val());
+                $.ajax({
+                    url: "/action.php?action=kifizetve",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    type: 'POST',
+                    success: function(data) {
+                        if (data != "") {
+                            if (confirm(data)) {
+                                window.location.href = '/visszavet';
+                            }
+                        } else
+                            window.location.href = '/visszavet'
+                    }
+                });
+            });
+            $("#form4").submit(function(event) {
+                event.preventDefault();
+                var data = new FormData();
+                let myForm = document.getElementById('form4');
+                let formData = new FormData(myForm);
+                formData.append('kesett', $('#kesett').val());
+                formData.append('bookrentalsid', $('#bookrentalsid').val());
+                $.ajax({
+                    url: "/action.php?action=visszahozva",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    type: 'POST',
+                    success: function(data) {
+                        if (data != "") {
+                            if (confirm(data)) {
+                                window.location.href = '/visszavet';
+                            }
+                        } else {
+                            window.location.href = '/visszavet'
+                        }
+                    }
+                });
+            });
+        </script>
     <?php
         break;
     case "kivesz":
         $olvasoid = $_POST["olvasoid"];
         $konyvid = $_POST["konyvid"];
-        print_r($_POST);
-        $napok = $db_handle->runQuery("SELECT `time`, `limit` FROM `readerstype` inner join readers on readers.type = readerstype.id WHERE readers.id = '" . $olvasoid . "'");
-        $visszahoz = date('Y-m-d', strtotime("+" . $napok[0]["time"] . " day"));
-        $kölcsönöz = $db_handle->addQuery("INSERT INTO `bookrentals` (`id`, ok, `date`, `backDate`, `readerID`, `bookID`, `issuedBy`, `created_at`, `updated_at`) VALUES (NULL, '0', '" . date("Y-m-d") . "', '" . $visszahoz . "', '" . $olvasoid . "', '" . $konyvid . "', '1', NULL, NULL)");
-        header('Location: /konyvkolcsonzes');
+        $konyvdb =  $db_handle->runQuery("select * from books where id = '" . $konyvid . "'");
+        $kivettdarab = $db_handle->runQuery("SELECT COUNT(1) as db FROM `bookrentals` WHERE bookID = '" . $konyvid . "' and ok = '0' group by bookID ");
+        $kidb = 0;
+        if (isset($kivettdarab[0]['db'])) {
+            $kidb = $kivettdarab[0]['db'];
+        }
+        if ($kidb < $konyvdb[0]['stock']) {
+            $eztmarkivette =  $db_handle->runQuery("select COUNT(1) as db from bookrentals INNER join readers on readers.id = bookrentals.readerID where bookrentals.bookid = '" . $konyvid . "' and ok = '0'");
+            if ($eztmarkivette[0]['db'] == 0) {
+                $napok = $db_handle->runQuery("SELECT `time`, `limit` FROM `readerstype` inner join readers on readers.type = readerstype.id WHERE readers.id = '" . $olvasoid . "'");
+                $db = $napok[0]["limit"];
+                if ($db == 0) {
+                    $visszahoz = date('Y-m-d', strtotime("+" . $napok[0]["time"] . " day"));
+                    $napok = $db_handle->addQuery("INSERT INTO `bookrentals` (`id`, `date`, `backDate`, `readerID`, `bookID`, `issuedBy`, `ok`, `created_at`, `updated_at`) VALUES (NULL, '" . date("Y-m-d") . "', '" . $visszahoz . "', '" . $olvasoid . "', '" . $konyvid . "', '2', '0', NOW(), NOW())");
+                } else {
+                    $kivettkonyvek = $db_handle->runQuery("select COUNT(1) as db from bookrentals INNER join readers on readers.id = bookrentals.readerID where bookrentals.readerID = '" . $konyvid . "' and ok = '0'");
+                    $kivett = $kivettkonyvek[0]["db"];
+                    if ($db > $kivett) {
+                        $visszahoz = date('Y-m-d', strtotime("+" . $napok[0]["time"] . " day"));
+                        $napok = $db_handle->addQuery("INSERT INTO `bookrentals` (`id`, `date`, `backDate`, `readerID`, `bookID`, `issuedBy`, `ok`, `created_at`, `updated_at`) VALUES (NULL, '" . date("Y-m-d") . "', '" . $visszahoz . "', '" . $olvasoid . "', '" . $konyvid . "', '2', '0', NOW(), NOW())");
+                    } else {
+                        echo "Nem haladhatja túl a limitet!";
+                    }
+                }
+            } else {
+                echo "Ezt a könyvet már kivette és nem hozta vissza!";
+            }
+        } else {
+            echo "Nem létezik több darab!";
+        }
+
+
         break;
     case "kolcsonkonyv":
         $idk = explode("/", $_POST["konyvvalaszt"]);
@@ -172,11 +260,35 @@ switch ($_GET["action"]) {
                 <img src='/images/<?php echo $konyv[0]['picture']; ?>'>
             </div>
         </div>
-        <form enctype='multipart/form-data' method='post' id="form1" title="" action="/action.php?action=kivesz">
-            <input type="hidden" name="olvasoid" id="olvasoid" value="<?php echo $idk[0] ?>">
-            <input type="hidden" name="konyvid" id="konyvid" value="<?php echo $idk[1] ?>">
+        <form enctype='multipart/form-data' method='post' id="form2" title="" action="/action.php?action=kivesz">
+            <input type="hidden" name="olvasoid" id="olvasoid" value="<?php echo $idk[1] ?>">
+            <input type="hidden" name="konyvid" id="konyvid" value="<?php echo $idk[0] ?>">
             <button type="submit" id='Submit' name='submit' class="btn btn-primary btn-lg btn-block">Kivesz</button>
         </form>
+        <script type="text/javascript">
+            $("#form2").submit(function(event) {
+                event.preventDefault();
+                var data = new FormData();
+                let myForm = document.getElementById('form1');
+                let formData = new FormData(myForm);
+                formData.append('olvasoid', $('#olvasoid').val());
+                formData.append('konyvid', $('#konyvid').val());
+                $.ajax({
+                    url: "/action.php?action=kivesz",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    type: 'POST',
+                    success: function(data) {
+                        if (data != "") {
+                            alert(data);
+                        } else {
+                            window.location.href = '/konyvkolcsonzes'
+                        }
+                    }
+                });
+            });
+        </script>
     <?php
         break;
     case "kolcsonnev":
@@ -241,7 +353,7 @@ switch ($_GET["action"]) {
                     <select id="konyvvalaszt" class="form-select" aria-label="Default select example" name='redersid' onchange='funn()'>
                         <option selected>Válassz...</option>
                         <?php
-                        $konyv = $db_handle->runQuery('select * from books');
+                        $konyv = $db_handle->runQuery("SELECT * FROM `books` WHERE `books`.`delete` = 1 ORDER by name");
                         $temp = 0;
                         foreach ($konyv as $o) {
                             $temp++;

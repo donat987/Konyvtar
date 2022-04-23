@@ -46,7 +46,6 @@ Route::controller(ReadersController::class)->group(function(){
     Route::get('kolcsonzok/{readers}' , 'show');
     Route::get('kolcsonzok/{readers}/modositas' , 'edit');
     Route::put('kolcsonzok/{readers}', 'update');
-    Route::delete('kolcsonzok/{readers}', 'destroy');
 });
 
 Route::controller(BooksController::class)->group(function(){
@@ -56,5 +55,4 @@ Route::controller(BooksController::class)->group(function(){
     Route::get('konyvek/{books}' , 'show');
     Route::get('konyvek/{books}/modositas' , 'edit');
     Route::put('konyvek/{books}', 'update');
-    Route::delete('konyvek/{books}', 'destroy');
 });

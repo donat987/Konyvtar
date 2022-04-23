@@ -100,11 +100,6 @@
 
         <button type="submit" id='Submit' name='submit' class="btn btn-primary btn-lg btn-block">Módosítás</button>
     </form>
-    <form enctype='multipart/form-data' method='POST' id="form" title="" action="/kolcsonzok/{{ $olvaso->id }}">
-        @method('DELETE')
-        @csrf
-        <button type="submit" id='Submit' name='submit' class="btn btn-primary btn-lg btn-block">Törlés</button>
-    </form>
     <script type="text/javascript">
         $.ajaxSetup({
             headers: {

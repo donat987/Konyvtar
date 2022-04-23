@@ -79,7 +79,6 @@
         });
         $("#form1").submit(function(event) {
             event.preventDefault();
-            event.preventDefault();
             var data = new FormData();
             let myForm = document.getElementById('form1');
             let formData = new FormData(myForm);

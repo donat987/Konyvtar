@@ -14,7 +14,23 @@
         </thead>
         <tbody>
             <?php
-            $olvaso = DB::select('select * from readers');
+            $nev = "";
+            $varos= "";
+            $utca = "";
+            $hszam = "";
+            if(isset($_GET["nev"])){
+                $nev = $_GET["nev"];
+            }
+            if(isset($_GET["varos"])){
+                $varos = $_GET["varos"];
+            }
+            if(isset($_GET["utca"])){
+                $utca = $_GET["utca"];
+            }
+            if(isset($_GET["hszam"])){
+                $hszam = $_GET["hszam"];
+            }
+            $olvaso = DB::select("select * from readers where name like '%".$nev."%' and town like '%".$varos."%' and street like '%".$utca."%' and houseNumber like '%".$hszam."%' order by name");
             foreach ($olvaso as $o) {
                 echo '<tr>';
                 echo '<th>' . $o->name . '</th>';

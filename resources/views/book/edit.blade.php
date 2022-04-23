@@ -90,12 +90,24 @@
                             value="{{ $konyv->stock }}">
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="inputid">ID</label>
-                        <input type="text" class="form-control" id="inputid" placeholder="ID" value="{{ $konyv->id }}">
+                        <label for="inputelerheto">Elérhető?</label>
+                        <select id="inputelerheto" class="form-control">
+                            <option value=>válassz...</option>
+                            <?php
+                            if ($konyv->delete == 1) {
+                                echo "<option selected value='1'>Igen</option>";
+                                echo "<option value='0'>Nem</option>";
+                            } else {
+                                echo "<option value='1'>Igen</option>";
+                                echo "<option selected value='0'>Nem</option>";
+                            }
+
+                            ?>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputTartalom">Example textarea</label>
+                    <label for="inputTartalom">Könyv leírása</label>
                     <textarea class="form-control" id="inputTartalom" rows="3">{{ $konyv->content }}</textarea>
                 </div>
             </div>
@@ -104,11 +116,6 @@
             </div>
         </div>
         <button type="submit" id='Submit' name='submit' class="btn btn-primary btn-lg btn-block">Módosítás</button>
-    </form>
-    <form enctype='multipart/form-data' method='POST' id="form" title="" action="/konyvek/{{ $konyv->id }}">
-        @method('DELETE')
-        @csrf
-        <button type="submit" id='Submit' name='submit' class="btn btn-primary btn-lg btn-block">Törlés</button>
     </form>
 
     <script type="text/javascript">
@@ -132,6 +139,7 @@
             formData.append('inputar', $('#inputar').val());
             formData.append('inputmennyiseg', $('#inputmennyiseg').val());
             formData.append('inputTartalom', $('#inputTartalom').val());
+            formData.append('inputelerheto', $('#inputelerheto').val());
             $.ajax({
                 url: "/konyvek/{{ $konyv->id }}",
                 data: formData,

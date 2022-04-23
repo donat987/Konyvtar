@@ -14,41 +14,29 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputcategory">Kategoria</label>
-                        <select id="inputcategory" class="form-control" readonly>
                             <?php
                             $category = DB::select('SELECT * FROM categories');
-
                             if (isset($category)) {
-                                echo '<option >válassz...</option>';
                                 foreach ($category as $c) {
                                     if ($c->id == $konyv->categoryID) {
-                                        echo "<option selected value=$c->id>" . $c->category . '</option>';
-                                    } else {
-                                        echo "<option value=$c->id>" . $c->category . '</option>';
+                                        echo"<input type='text' class='form-control' id='kateg' value='" . $c->category . "' readonly>";
                                     }
                                 }
                             }
                             ?>
-                        </select>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputlanguage">Nyelv</label>
-                        <select id="inputlanguage" class="form-control" readonly>
                             <?php
                             $languages = DB::select('SELECT * FROM languages');
-
                             if (isset($languages)) {
-                                echo '<option value=>válassz...</option>';
                                 foreach ($languages as $l) {
                                     if ($l->id == $konyv->languageID) {
-                                        echo "<option selected value=$l->id>" . $l->language . '</option>';
-                                    } else {
-                                        echo "<option value=$l->id>" . $l->language . '</option>';
+                                        echo"<input type='text' class='form-control' id='nyelve' value='" . $l->language . "' readonly>";
                                     }
                                 }
                             }
                             ?>
-                        </select>
                     </div>
                 </div>
                 <div class="form-row">
@@ -81,8 +69,15 @@
                         <input type="text" class="form-control" id="inputmennyiseg" placeholder="Mennyiség" value="{{ $konyv->stock }}" readonly>
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="inputid">ID</label>
-                        <input type="text" class="form-control" id="inputid" placeholder="ID" value="{{ $konyv->id }} " readonly>
+                        <label for="inputid">Elérhető?</label>
+                        <?php
+                        if($konyv->delete == 1){
+                            echo"<input type='text' class='form-control' id='inputid' value='Igen' readonly>";
+                        }else{
+                            echo"<input type='text' class='form-control' id='inputid' value='Nem' readonly>";
+                        }
+                        ?>
+
                     </div>
                 </div>
                 <div class="form-group">

@@ -17,7 +17,7 @@ class BookrentalFactory extends Factory
     public function definition()
     {
         return [
-            //
+
         ];
     }
 }

@@ -55,7 +55,7 @@ if ($ido > 5 and $ido < 9) {
                             /konyvkolcsonzes">Kölcsönzés</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::path() === 'kolcsonzok' ? 'active' : '' }}" href="
+                        <a class="nav-link {{ Request::path() === 'kolcsonzok'  ? 'active' : '' }}" href="
                             /kolcsonzok">Olvasók kezelése</a>
                     </li>
                     <li class="nav-item">

@@ -35,7 +35,7 @@
         </div>
     </div>
     <header class="">
-        <nav class="navbar navbar-expand-lg">
+        <nav class="navbar navbar-expand-lg" style="padding-bottom: 0px !important;">
             <div class="container">
                 <a class="navbar-brand" href="/">
                     <h2>Incidens <em>Kar</em></h2>
@@ -51,7 +51,7 @@
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
-                        <li class="nav-item {{ Request::path() === 'kereses' ? 'active' : '' }}">
+                        <li class="nav-item {{ Request::path() === 'kereses' || Request::path() === 'konyv' ? 'active' : '' }}">
                             <a class="nav-link" href="/kereses">Keresés</a>
                         </li>
                         <li class="nav-item {{ Request::path() === 'rolunk' ? 'active' : '' }}">
@@ -64,8 +64,8 @@
                 </div>
             </div>
         </nav>
-        @if (Request::path() === 'kereses')
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+        @if (Request::path() === 'kereses' || Request::path() === 'konyv' )
+        <nav class="navbar navbar-expand-lg" style="background-color: white">
             <div class="container">
                 <form class="form-inline" method="get" id="form" title="" action="/kereses">
                     <div class=" form-row " style="flex-wrap: nowrap;">

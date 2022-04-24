@@ -27,6 +27,10 @@ Route::get('/kereses', function () {
     return view('search');
 });
 
+Route::get('/konyv', function () {
+    return view('book');
+});
+
 Route::get('/rolunk', function () {
     return view('about');
 });
@@ -38,6 +42,7 @@ Route::get('/konyvkolcsonzes', function () {
 Route::get('/visszavet', function () {
     return view('back');
 });
+
 
 Route::controller(ReadersController::class)->group(function(){
     Route::get('kolcsonzok', 'index');

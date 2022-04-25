@@ -38,9 +38,9 @@
                     ?>
                 <div class="col-md-4">
                     <div class="product-item">
-                        <a href="#"><img src="images/{{ $l->picture }}" alt=""></a>
+                        <a href="/konyv?id={{$l->id}}"><img src="images/{{ $l->picture }}" alt=""></a>
                         <div class="down-content">
-                            <a href="#">
+                            <a href="/konyv?id={{$l->id}}">
                                 <h4>{{ $l->name }}</h4>
                             </a>
                             <p>{{ substr($l->content, 0, 150) . '...' }}</p>

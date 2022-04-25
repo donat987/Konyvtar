@@ -29,7 +29,10 @@ $konyv = DB::select("select * from books inner join languages on languages.id = 
                 $dbkonyv = DB::select("SELECT stock from books where id = '".$_GET["id"]."'");
                 $db = $dbkonyv[0]->stock;
                 $kivettdarab = DB::select("SELECT COUNT(1) as db from bookrentals WHERE bookID ='".$_GET["id"]."' and ok = 0 group by bookID");
-                $kidb = $kivettdarab[0]->db;
+                $kidb = 0;
+                if(!isset($kidb)){
+                    $kidb = $kivettdarab[0]->db;
+                }
               if($db != $kidb){
                 echo"<h4>Készleten: igen</h4>";
               }else if($db == $kidb){

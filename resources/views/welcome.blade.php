@@ -28,7 +28,7 @@
                 <div class="col-md-12">
                     <div class="section-heading">
                         <h2>Pár random könyv</h2>
-                        <a href="products.html">Összes könyv, kévéve ami nincs <i class="fa fa-angle-right"></i></a>
+                        <a href="/kereses">Összes könyv, kévéve ami nincs <i class="fa fa-angle-right"></i></a>
                     </div>
                 </div>
                 <?php

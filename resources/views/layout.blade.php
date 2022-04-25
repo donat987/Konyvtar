@@ -38,7 +38,7 @@
         <nav class="navbar navbar-expand-lg" style="padding-bottom: 0px !important;">
             <div class="container">
                 <a class="navbar-brand" href="/">
-                    <h2>Incidens <em>Kar</em></h2>
+                    <h2>Incidens <em>Könyvtár</em></h2>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">

@@ -12,20 +12,13 @@
                 value="{{ $olvaso->dateOfBirth }}" readonly>
         </div>
         <div class="form-group col-md-2">
-            <label for="inputemail" readonly>Diák</label>
-            <select id="inputstudent" class="form-control">
-                <?php
-                if ($olvaso->student == 0) {
-                    echo '<option >válassz...</option>';
-                    echo "<option selected value='0' >nem</option>";
-                    echo "<option value='1'>igen</option>";
-                } else {
-                    echo '<option >válassz...</option>';
-                    echo "<option value='0'>nem</option>";
-                    echo "<option selected value='1'>igen</option>";
-                }
-                ?>
-            </select>
+            <label for="inputemail">Típus</label>
+            <?php
+            $readerstype = DB::select("select * from readers inner join readerstype on readers.type = readerstype.id where readers.id = '" . $olvaso->id . "'");
+            if (isset($readerstype)) {
+                echo "<input type='text' class='form-control' id='inputmothername' value='" . $readerstype[0]->typename . "' readonly>";
+            }
+            ?>
         </div>
     </div>
     <div class="form-row">
@@ -95,36 +88,36 @@
     <?php
     $konyvek = DB::select("SELECT * FROM `bookrentals` inner join books on books.id = bookrentals.bookID where bookrentals.readerID = '" . $olvaso->id . "' order by date desc");
     ?>
-    @if(isset($konyvek[0]))
-    <h3 style="padding: 10px 0px">Eddig kivett könyvei:</h3>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th scope="col">Cím</th>
-                <th scope="col">Szerző</th>
-                <th scope="col">ISBN</th>
-                <th scope="col">Kivette</th>
-                <th scope="col">Visszahozta</th>
-            </tr>
-        </thead>
-        <tbody>
+    @if (isset($konyvek[0]))
+        <h3 style="padding: 10px 0px">Eddig kivett könyvei:</h3>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Cím</th>
+                    <th scope="col">Szerző</th>
+                    <th scope="col">ISBN</th>
+                    <th scope="col">Kivette</th>
+                    <th scope="col">Visszahozta</th>
+                </tr>
+            </thead>
+            <tbody>
                 @foreach ($konyvek as $o)
-            <tr>
-                <th>{{$o->name}}</th>
-                <th>{{$o->author}}</th>
-                <th>{{$o->ISBN}}</th>
-                <th>{{$o->date}}</th>
-                @if($o->ok == 1)
-                <th>{{$o->backDate}}</th>
-                @endif
-                @if($o->ok == 0)
-                <th>Még nem hozta vissza</th>
-                @endif
-            </tr>
+                    <tr>
+                        <th>{{ $o->name }}</th>
+                        <th>{{ $o->author }}</th>
+                        <th>{{ $o->ISBN }}</th>
+                        <th>{{ $o->date }}</th>
+                        @if ($o->ok == 1)
+                            <th>{{ $o->backDate }}</th>
+                        @endif
+                        @if ($o->ok == 0)
+                            <th>Még nem hozta vissza</th>
+                        @endif
+                    </tr>
                 @endforeach
-        </tbody>
-        @endif
-        @if(!isset($konyvek[0]))
+            </tbody>
+    @endif
+    @if (!isset($konyvek[0]))
         <h3 style="padding: 10px 0px">Eddig nem vett ki könyvet!</h3>
-        @endif
-    @endsection
+    @endif
+@endsection

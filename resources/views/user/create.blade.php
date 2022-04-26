@@ -16,15 +16,14 @@
                 <input type="date" class="form-control" id="inputdate" placeholder="Születésidátum">
             </div>
             <div class="form-group col-md-2">
-                <label for="inputemail">Diák</label>
+                <label for="inputemail">típus</label>
                 <select id="inputstudent" class="form-control">
-                    <option selected>válassz...</option>
                     <?php
-                    $type = DB::select('SELECT * FROM readerstype');
-
-                    if (isset($type)) {
-                        foreach ($type as $l) {
-                            echo "<option value=$l->id>" . $l->type . '</option>';
+                    $readerstype = DB::select('SELECT * FROM readerstype');
+                    if (isset($readerstype)) {
+                        echo '<option selected>válassz...</option>';
+                        foreach ($readerstype as $l) {
+                            echo "<option value=$l->id>" . $l->typename . '</option>';
                         }
                     }
                     ?>

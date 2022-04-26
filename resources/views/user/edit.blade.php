@@ -18,18 +18,21 @@
                     value="{{ $olvaso->dateOfBirth }}">
             </div>
             <div class="form-group col-md-2">
-                <label for="inputemail">Diák</label>
+                <label for="inputemail">Típus</label>
                 <select id="inputstudent" class="form-control">
                     <?php
-                    if ($olvaso->student == 0) {
-                        echo '<option >válassz...</option>';
-                        echo "<option selected value='0' >nem</option>";
-                        echo "<option value='1'>igen</option>";
-                    } else {
-                        echo '<option >válassz...</option>';
-                        echo "<option value='0'>nem</option>";
-                        echo "<option selected value='1'>igen</option>";
-                    }
+                    $readerstype = DB::select("select * from readerstype ");
+
+                    if (isset($readerstype)) {
+                                echo '<option value=>válassz...</option>';
+                                foreach ($readerstype as $l) {
+                                    if ($l->id == $olvaso->type) {
+                                        echo "<option selected value=$l->id>" . $l->typename . '</option>';
+                                    } else {
+                                        echo "<option value=$l->id>" . $l->typename . '</option>';
+                                    }
+                                }
+                            }
                     ?>
                 </select>
             </div>

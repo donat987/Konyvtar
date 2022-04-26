@@ -401,11 +401,12 @@ switch ($_GET["action"]) {
         } else {
             $felh = $_POST["username"];
             $jelszo = $_POST["password"];
-            $productByid = $db_handle->runQuery("SELECT name, username, password FROM users where username = '" . $felh . "'");
+            $productByid = $db_handle->runQuery("SELECT name, username, id, password FROM users where username = '" . $felh . "'");
             if (isset($productByid)) {
                 $itemArray = array('name' => $productByid[0]["name"], 'username' => $productByid[0]["username"], 'password' => $productByid[0]["password"]);
                 if (MD5($jelszo) == $productByid[0]["password"]) {
                     $_SESSION["name"] = $productByid[0]["name"];
+                    $_SESSION["id"] = $productByid[0]["id"];
                     echo "Sikeres bejelentkézes";
         ?>
                     <script>

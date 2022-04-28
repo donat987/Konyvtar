@@ -102,7 +102,7 @@ switch ($_GET["action"]) {
                     <th scope="col">Ára</th>
                     <th scope="col">Kép</th>
                     <th scope="col">Kivizette</th>
-                    <th scope="col">Visszahoszta</th>
+                    <th scope="col">Visszahozta</th>
                 </tr>
             </thead>
             <tbody>
@@ -120,8 +120,8 @@ switch ($_GET["action"]) {
                     echo '<th>' . (int)$p . '</th>';
                     echo '<th>' . $o["price"] . '</th>';
                     echo "<th><img src='images/" . $o["picture"] . "' style='height: 150px;'></th>";
-                    echo "<td><form id='form3' method='POST' action='action.php?action=kifizetve' ><input type='hidden' name='kesett' id='kesett' value='" . $p . "'><input type='hidden' name='bookrentalsid' id='bookrentalsid' value='" . $o["bookrentalsid"] . "'><input type='hidden' name='bookid' id='bookid' value='" . $o["bookid"] . "'><button type='submit' id='Submit' name='submit'>Kivizette</button></form></td>";
-                    echo "<td><form id='form4' method='POST' action='action.php?action=visszahozva' ><input type='hidden' name='kesett' id='kesett' value='" . $p . "'><input type='hidden' name='bookrentalsid' id='bookrentalsid' value='" . $o["bookrentalsid"] . "'><button type='submit' id='Submit' name='submit'>Visszahozta</button></form></td>";
+                    echo "<td><form id='form3' method='POST' action='action.php?action=kifizetve' ><input type='hidden' name='kesett' id='kesett' value='" . $p . "'><input type='hidden' name='bookrentalsid' id='bookrentalsid' value='" . $o["bookrentalsid"] . "'><input type='hidden' name='bookid' id='bookid' value='" . $o["bookid"] . "'><button class='btn btn-dark' type='submit' id='Submit' name='submit'>Kivizette</button></form></td>";
+                    echo "<td><form id='form4' method='POST' action='action.php?action=visszahozva' ><input type='hidden' name='kesett' id='kesett' value='" . $p . "'><input type='hidden' name='bookrentalsid' id='bookrentalsid' value='" . $o["bookrentalsid"] . "'><button type='submit' id='Submit' class='btn btn-dark' name='submit'>Visszahozta</button></form></td>";
                     echo '</tr>';
                 }
                 ?>

@@ -1,6 +1,6 @@
 <?php
 class DBController {
-	private $host = "mysql.nethely.hu";
+	private $host = "psql.nethely.hu";
 	private $user = "konyvtar123";
 	private $password = "konyvtar";
 	private $database = "konyvtar123";
